@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2022 at 05:30 AM
+-- Generation Time: Jun 20, 2022 at 05:38 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -1428,7 +1428,7 @@ INSERT INTO `documents` (`id`, `document_folder_id`, `name`, `description`, `fil
 CREATE TABLE `document_folders` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `folder` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `folder` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `descriptions` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL

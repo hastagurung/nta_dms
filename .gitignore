@@ -3,7 +3,6 @@
 /public/js
 /public/media
 /public/plugins
-/storage/*.key
 /vendor
 .env
 .env.backup

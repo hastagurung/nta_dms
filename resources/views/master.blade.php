@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <title>NTA | Document Management</title>
 
         {{-- Meta Data --}}
-        <meta name="description" content="@yield('page_description', $page_description ?? '')"/>
+        <meta name="description" content="Document Archival Software"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
         {{-- Favicon --}}

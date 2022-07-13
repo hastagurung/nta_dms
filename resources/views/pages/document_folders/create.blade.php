@@ -43,6 +43,3 @@
 	</div>
 </div>	
 @endsection
-<!-- @section('jsLibrary')
-<script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
-@endsection -->

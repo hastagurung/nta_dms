@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Document;
 use App\Models\FiscalYear;
 use App\Models\DocumentFolder;
-
+use App\Models\UserLog;
+use Auth;
 
 class DocumentsController extends Controller
 {
@@ -63,6 +64,7 @@ class DocumentsController extends Controller
         $document->file_path = $doc_name;
 
         if ($document->save()) {
+            $this->addToLog("Add",$document->name);
             return redirect()->route('documents.list',$data['document_folder_id'])->with('success', 'Your Information has been Added .');
         }
         return redirect()->back()->with('fail', 'Information could not be added .');
@@ -100,6 +102,7 @@ class DocumentsController extends Controller
         $documents->fill($data);
         
         if ($documents->save()){
+            $this->addToLog("Update",$data['name']);
             return redirect()->route('documents.list',$data['document_folder_id'])->with('success', 'Your Information has been Updated .');
         }
         return redirect()->back()->with('fail', 'Information could not be added .');
@@ -120,5 +123,14 @@ class DocumentsController extends Controller
             return redirect()->back()->with('success', "Deleted");
         }
         return redirect()->back()->with('fail', "Documents could not be deleted.");
+    }
+
+    public function addToLog($activity,$docName) {
+        $log = new UserLog();
+        $log->user_id = Auth::id();
+        $log->activity = $activity;
+        $description = ($activity == "Add") ? "added" : "updated";
+        $log->description = $docName.' named document has been '.$description;
+        $log->save();
     }
 }

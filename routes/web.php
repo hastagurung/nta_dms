@@ -26,4 +26,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('documents','DocumentsController');
     Route::resource('fiscal_years','FiscalYearController');
 
+    
+    Route::post('check-old-pass','UserController@checkOldPassword')->name('check-old-pass');
+    Route::post('check_username','UserController@checkUsername')->name('check_username');
+    Route::get('list_users_log','UserController@listUsersLog')->name('list-users-log');
+    Route::resource('users','UserController');
+    Route::resource('roles','RoleController');
+
 });

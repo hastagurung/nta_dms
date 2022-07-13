@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\UserLog;
 
 class AuthController extends Controller
 {
@@ -29,6 +30,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            $this->addToLog("login");
             return redirect()->route('document_folders.index');
         } else {
             return redirect()->back()->with('fail','Your username and password is incorrect .');
@@ -39,8 +41,17 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $this->addToLog("logout");
         Auth::logout();
         $request->session()->invalidate();
 		return redirect()->route('login');
+    }
+
+    public function addToLog($activity) {
+        $log = new UserLog();
+        $log->user_id = Auth::id();
+        $log->activity = $activity;
+        $log->description = ($activity == "login") ? "Logged in to the system" : "Logged out of the system";;
+        $log->save();
     }
 }

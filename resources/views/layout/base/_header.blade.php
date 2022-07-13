@@ -27,7 +27,11 @@
 
                 <div id="kt_header_menu" class="header-menu header-menu-mobile {{ Metronic::printClasses('header_menu', false) }}" {{ Metronic::printAttrs('header_menu') }}>
                     <ul class="menu-nav {{ Metronic::printClasses('header_menu_nav', false) }}">
-                        {{ Menu::renderHorMenu(config('menu_header.items')) }}
+                        @if (auth()->user()->role_id == 1)
+                            {{ Menu::renderVerMenu(config('menu_header.items')) }}
+                        @else
+                            {{ Menu::renderVerMenu(config('staff_menu_header.items')) }}
+                        @endif  
                     </ul>
                 </div>
             </div>

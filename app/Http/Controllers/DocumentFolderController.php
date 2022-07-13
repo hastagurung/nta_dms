@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DocumentFolder;
+use App\Models\UserLog;
+use Auth;
 use Illuminate\Support\Str;
 
 class DocumentFolderController extends Controller
@@ -41,6 +43,7 @@ class DocumentFolderController extends Controller
         $documentFolder->folder = $data['name'];
        
         if ($documentFolder->save()) {
+            $this->addToLog("Add",$documentFolder->name);
             return redirect()->route('document_folders.index')->with('success', 'Your Document Folder has been Added .');
         }
         return redirect()->back()->with('fail', 'Information could not be added .');
@@ -54,7 +57,6 @@ class DocumentFolderController extends Controller
 
     public function update(Request $request,$id)
     {
-
         $this->validate($request, [
             'name' => 'required',
         ]);
@@ -63,6 +65,7 @@ class DocumentFolderController extends Controller
         $documentFolder = DocumentFolder::findOrFail($id);
         $documentFolder->fill($data);
         if ($documentFolder->save()){
+            $this->addToLog("Update",$data['name']);
             return redirect()->route('document_folders.index')->with('success', 'Your Information has been Updated .');
         }
         return redirect()->back()->with('fail', 'Information could not be added .');
@@ -77,4 +80,12 @@ class DocumentFolderController extends Controller
         return redirect()->back()->with('fail', 'Information could not be deleted .');
     }
 
+    public function addToLog($activity,$docName) {
+        $log = new UserLog();
+        $log->user_id = Auth::id();
+        $log->activity = $activity;
+        $description = ($activity == "Add") ? "added" : "updated";
+        $log->description = $docName.' named folder has been '.$description;
+        $log->save();
+    }
 }

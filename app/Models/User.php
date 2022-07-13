@@ -18,8 +18,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
+        'role_id'
     ];
 
     /**
@@ -40,4 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+    	return $this->belongsTo('App\Models\Role','role_id','id');
+    }
+
+    public function initials(){
+        $words = explode(" ", $this->name );
+        $initials = null;
+        foreach ($words as $key=>$w) {
+            if ($key > 1) {
+                break;
+            }
+            $initials .= $w[0];
+        }
+        return strtoupper($initials);
+    }
 }

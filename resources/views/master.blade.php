@@ -62,7 +62,33 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script> -->
         {{-- Includable JS --}}
         @yield('scripts')
-
+        <script>
+            @if (\Session::has('success'))
+    		swal.fire({
+			  	title: "Success!",
+			  	text:"{!! session('success') !!}",
+			  	icon: "success",
+			  	buttonsStyling: false,
+			  	confirmButtonText: "Ok",
+			  	showCancelButton: false,
+			  	customClass: {
+			   		confirmButton: "btn btn-success",
+		  		}
+		 	});
+    	@elseif (\Session::has('fail'))
+    		swal.fire({
+			  	title: "Failure!",
+			  	text: "{!! session('fail') !!}",
+			  	icon: "error",
+			  	buttonsStyling: false,
+			  	confirmButtonText: "Ok",
+			  	showCancelButton: false,
+			  	customClass: {
+			   		confirmButton: "btn btn-success",
+		  		}
+		 	});
+    	@endif
+        </script>
     </body>
 </html>
 

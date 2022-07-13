@@ -7,7 +7,7 @@
         </div>
 
         {{-- Text --}}
-        <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">Admin</div>
+        <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">{{auth()->user()->name}}</div>
         <span class="label label-light-success label-lg font-weight-bold label-inline">3 messages</span>
     </div>
     <div class="separator separator-solid"></div>
@@ -21,7 +21,7 @@
             </div>
 
             {{-- Text --}}
-            <div class="text-white m-0 flex-grow-1 mr-3 font-size-h5">Admin</div>
+            <div class="text-white m-0 flex-grow-1 mr-3 font-size-h5">{{auth()->user()->name}}</div>
         </div>
     </div>
 @endif
